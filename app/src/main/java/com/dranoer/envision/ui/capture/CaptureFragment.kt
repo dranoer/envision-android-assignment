@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.dranoer.envision.R
 import com.dranoer.envision.databinding.FragmentCaptureBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_capture.*
 import java.io.File
 import java.text.SimpleDateFormat
@@ -27,6 +28,7 @@ import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
+@AndroidEntryPoint
 class CaptureFragment : Fragment() {
     private var _binding: FragmentCaptureBinding? = null
     private val binding get() = _binding!!
