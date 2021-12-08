@@ -23,6 +23,9 @@ class CaptureViewModel @Inject constructor(
     private val _ocrModel = MutableLiveData<OCRModel>()
     val ocrModel: LiveData<OCRModel> = _ocrModel
 
+    private val _hasFinished = MutableLiveData<Boolean>()
+    val hasFinished: LiveData<Boolean> = _hasFinished
+
     fun postPhoto(photo: File) {
 
         val filePart = MultipartBody.Part.createFormData(
@@ -38,6 +41,7 @@ class CaptureViewModel @Inject constructor(
             when (result) {
                 is Resource.Success -> {
                     _ocrModel.value = result.data!!
+                    _hasFinished.value = true
                 }
                 is Resource.Failure -> {
                 }

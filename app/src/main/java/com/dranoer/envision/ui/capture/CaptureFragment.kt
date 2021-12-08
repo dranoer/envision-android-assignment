@@ -17,8 +17,11 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import coil.load
 import com.dranoer.envision.R
 import com.dranoer.envision.databinding.FragmentCaptureBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -69,11 +72,15 @@ class CaptureFragment : Fragment() {
             )
         }
 
-        binding.cameraCaptureButton.setOnClickListener { takePhoto() }
+        binding.captureButton.setOnClickListener { takePhoto() }
 
         outputDirectory = getOutputDirectory()
 
         cameraExecutor = Executors.newSingleThreadExecutor()
+
+        viewModel.hasFinished.observe(viewLifecycleOwner) {
+            if (it == true) Log.d("nazi", "OCR is done now")
+        }
     }
 
     private fun takePhoto() {
@@ -106,7 +113,15 @@ class CaptureFragment : Fragment() {
                     val msg = "Photo capture succeeded: $savedUri"
                     Toast.makeText(safeContext, msg, Toast.LENGTH_SHORT).show()
                     Log.d(TAG, msg)
+
+                    binding.capturedImage.load(savedUri)
+                    binding.viewFinder.isGone = true
+                    binding.captureButton.isGone = true
+                    binding.capturedImage.isVisible = true
+                    binding.progressText.isVisible = true
+
                     viewModel.postPhoto(photoFile)
+                    Log.d("nazi", "ocr starts")
                 }
             })
     }
