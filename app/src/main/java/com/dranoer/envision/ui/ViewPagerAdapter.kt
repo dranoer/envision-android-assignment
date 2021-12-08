@@ -1,26 +1,66 @@
 package com.dranoer.envision.ui
 
+import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.Lifecycle
-import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
+import com.dranoer.envision.Constants.NUM_TABS
+import com.dranoer.envision.R
 import com.dranoer.envision.ui.capture.CaptureFragment
+import com.dranoer.envision.ui.capture.CapturedFragment
 import com.dranoer.envision.ui.library.LibraryFragment
+import com.dranoer.envision.ui.listener.NavigationListener
+import com.dranoer.envision.ui.listener.TabListener
 
-private const val NUM_TABS = 2
+private val tabArray = arrayOf(
+    R.string.capture,
+    R.string.library,
+)
 
-class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
-    FragmentStateAdapter(fragmentManager, lifecycle) {
+class ViewPagerAdapter(
+    fragmentManager: FragmentManager,
+    private val context: Context,
+    private val tabListener: TabListener
+) :
+    FragmentStatePagerAdapter(fragmentManager),
+    NavigationListener {
 
-    override fun getItemCount(): Int {
+    private var fragment: Fragment? = null
+
+    override fun getCount(): Int {
         return NUM_TABS
     }
 
-    override fun createFragment(position: Int): Fragment {
-        when (position) {
-            0 -> return CaptureFragment()
-            1 -> return LibraryFragment()
-        }
-        return LibraryFragment()
+    override fun getItem(position: Int): Fragment {
+        if (position == 0) {
+            if (fragment == null) {
+                fragment = CaptureFragment.newInstance(this)
+            }
+            return fragment!!
+        } else return LibraryFragment.newInstance()
+    }
+
+    override fun getPageTitle(position: Int): CharSequence {
+        return context.resources.getString(tabArray[position])
+    }
+
+    override fun getItemPosition(`object`: Any): Int {
+        return if (`object` is CaptureFragment && fragment is CapturedFragment)
+            POSITION_NONE
+        else if (`object` is CapturedFragment && fragment is CaptureFragment)
+            POSITION_NONE
+        else POSITION_UNCHANGED
+    }
+
+    override fun openCaptured() {
+        fragment = CapturedFragment.newInstance(
+            tabListener = tabListener, navigationListener = this
+        )
+        notifyDataSetChanged()
+    }
+
+    override fun openLibrary() {
+        fragment = CaptureFragment.newInstance(this)
+        notifyDataSetChanged()
     }
 }

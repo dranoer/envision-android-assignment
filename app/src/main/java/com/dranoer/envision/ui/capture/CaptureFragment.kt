@@ -24,6 +24,7 @@ import androidx.fragment.app.viewModels
 import coil.load
 import com.dranoer.envision.R
 import com.dranoer.envision.databinding.FragmentCaptureBinding
+import com.dranoer.envision.ui.listener.NavigationListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_capture.*
 import java.io.File
@@ -80,6 +81,7 @@ class CaptureFragment : Fragment() {
 
         viewModel.hasFinished.observe(viewLifecycleOwner) {
             if (it == true) Log.d("nazi", "OCR is done now")
+            navigationListener?.openCaptured()
         }
     }
 
@@ -204,5 +206,13 @@ class CaptureFragment : Fragment() {
         private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
         private const val REQUEST_CODE_PERMISSIONS = 10
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
+
+        private var navigationListener: NavigationListener? = null
+
+        @JvmStatic
+        fun newInstance(listener: NavigationListener): CaptureFragment {
+            Companion.navigationListener = listener
+            return CaptureFragment()
+        }
     }
 }

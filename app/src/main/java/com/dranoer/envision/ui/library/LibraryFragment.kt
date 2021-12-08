@@ -21,4 +21,11 @@ class LibraryFragment : Fragment() {
         val view = binding.root
         return view
     }
+
+    companion object {
+        @JvmStatic
+        fun newInstance(): LibraryFragment {
+            return LibraryFragment()
+        }
+    }
 }
