@@ -18,6 +18,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.dranoer.envision.R
 import com.dranoer.envision.databinding.FragmentCaptureBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,6 +35,8 @@ class CaptureFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var imageCapture: ImageCapture? = null
+
+    val viewModel: CaptureViewModel by viewModels()
 
     private lateinit var safeContext: Context
 
@@ -103,6 +106,7 @@ class CaptureFragment : Fragment() {
                     val msg = "Photo capture succeeded: $savedUri"
                     Toast.makeText(safeContext, msg, Toast.LENGTH_SHORT).show()
                     Log.d(TAG, msg)
+                    viewModel.postPhoto(photoFile)
                 }
             })
     }
