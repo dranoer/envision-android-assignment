@@ -2,6 +2,6 @@ package com.dranoer.envision.ui.listener
 
 interface NavigationListener {
 
-    fun openCaptured()
+    fun openCaptured(paragraphs: String)
     fun openLibrary()
 }

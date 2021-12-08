@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dranoer.envision.data.model.OCRModel
 import com.dranoer.envision.data.remote.Resource
 import com.dranoer.envision.domain.OCRRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,11 +19,8 @@ class CaptureViewModel @Inject constructor(
     var repository: OCRRepository
 ) : ViewModel() {
 
-    private val _ocrModel = MutableLiveData<OCRModel>()
-    val ocrModel: LiveData<OCRModel> = _ocrModel
-
-    private val _hasFinished = MutableLiveData<Boolean>()
-    val hasFinished: LiveData<Boolean> = _hasFinished
+    private val _paragraphsLiveData = MutableLiveData<String>()
+    val paragraphsLiveData: LiveData<String> = _paragraphsLiveData
 
     fun postPhoto(photo: File) {
 
@@ -40,8 +36,13 @@ class CaptureViewModel @Inject constructor(
             )
             when (result) {
                 is Resource.Success -> {
-                    _ocrModel.value = result.data!!
-                    _hasFinished.value = true
+
+                    // Fill the data that is required in captured screen
+                    var text = ""
+                    for (paragraph in result.data.response.paragraphs) {
+                        text += paragraph.paragraph
+                    }
+                    _paragraphsLiveData.value = text
                 }
                 is Resource.Failure -> {
                 }

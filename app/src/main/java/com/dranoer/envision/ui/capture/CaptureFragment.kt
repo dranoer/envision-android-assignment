@@ -79,9 +79,9 @@ class CaptureFragment : Fragment() {
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 
-        viewModel.hasFinished.observe(viewLifecycleOwner) {
-            if (it == true) Log.d("nazi", "OCR is done now")
-            navigationListener?.openCaptured()
+        viewModel.paragraphsLiveData.observe(viewLifecycleOwner) { paragraphs ->
+            Log.d("nazi", "OCR is done now")
+            navigationListener?.openCaptured(paragraphs)
         }
     }
 

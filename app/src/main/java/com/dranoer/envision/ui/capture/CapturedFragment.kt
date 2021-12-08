@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.dranoer.envision.Constants
 import com.dranoer.envision.databinding.FragmentCapturedBinding
 import com.dranoer.envision.ui.listener.NavigationListener
 import com.dranoer.envision.ui.listener.TabListener
@@ -18,13 +20,35 @@ class CapturedFragment : Fragment() {
     var tabsListener: TabListener? = null
     var navigationListener: NavigationListener? = null
 
+    val viewModel: CaptureViewModel by viewModels()
+
+    private var params: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        arguments?.let { params = it.getString(Constants.ARG_PARAGRAPH) }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentCapturedBinding.inflate(inflater, container, false)
         val view = binding.root
+
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+
+        binding.paragraph.text = params
+
         return view
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     companion object {
@@ -32,8 +56,10 @@ class CapturedFragment : Fragment() {
         fun newInstance(
             tabListener: TabListener,
             navigationListener: NavigationListener,
+            paragraphs: String,
         ) =
             CapturedFragment().apply {
+                arguments = Bundle().apply { putString(Constants.ARG_PARAGRAPH, paragraphs) }
                 this.tabsListener = tabListener
                 this.navigationListener = navigationListener
             }

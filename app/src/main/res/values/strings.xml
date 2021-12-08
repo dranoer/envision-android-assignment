@@ -3,4 +3,7 @@
     <string name="capture">CAPTURE</string>
     <string name="library">LIBRARY</string>
     <string name="progress">OCR in progress...</string>
+    <string name="save_text">SAVE TEXT TO LIBRARY</string>
+    <string name="text_saved">Text saved to library!</string>
+    <string name="go_to_library">GO TO LIBRARY</string>
 </resources>
