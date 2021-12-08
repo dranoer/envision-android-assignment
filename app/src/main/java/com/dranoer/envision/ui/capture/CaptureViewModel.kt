@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dranoer.envision.data.remote.Resource
-import com.dranoer.envision.domain.OCRRepository
+import com.dranoer.envision.domain.OcrRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CaptureViewModel @Inject constructor(
-    var repository: OCRRepository
+    var repository: OcrRepository
 ) : ViewModel() {
 
     private val _paragraphsLiveData = MutableLiveData<String>()

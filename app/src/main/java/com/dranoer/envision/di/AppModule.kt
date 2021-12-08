@@ -2,9 +2,9 @@ package com.dranoer.envision.di
 
 import com.dranoer.envision.BuildConfig
 import com.dranoer.envision.Constants
-import com.dranoer.envision.data.remote.DataSource
+import com.dranoer.envision.data.remote.NetworkDataSource
 import com.dranoer.envision.data.remote.WebService
-import com.dranoer.envision.domain.OCRRepository
+import com.dranoer.envision.domain.OcrRepository
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -51,8 +51,8 @@ object AppModule {
     @Singleton
     @Provides
     fun provideRepository(
-        dataSource: DataSource,
+        dataSource: NetworkDataSource,
     ) =
-        OCRRepository(dataSource)
+        OcrRepository(dataSource)
 
 }
