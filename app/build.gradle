@@ -83,4 +83,8 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp-urlconnection:$rootProject.okhttp"
     implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttp"
     implementation "com.google.code.gson:gson:$rootProject.gson"
+
+    // Room
+    implementation "androidx.room:room-ktx:$rootProject.room"
+    kapt "androidx.room:room-compiler:$rootProject.room"
 }
