@@ -46,6 +46,7 @@ dependencies {
     implementation "com.google.android.material:material:$rootProject.material"
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintlayout"
     implementation "androidx.legacy:legacy-support-v4:$rootProject.support"
+    implementation("io.coil-kt:coil:$rootProject.coil")
 
     // Test
     testImplementation 'junit:junit:4.+'

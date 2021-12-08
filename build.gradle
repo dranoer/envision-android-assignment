@@ -32,6 +32,7 @@ ext {
     retrofit = '2.9.0'
     okhttp = '4.9.1'
     gson = '2.8.6'
+    coil = '1.4.0'
 }
 
 task clean(type: Delete) {
