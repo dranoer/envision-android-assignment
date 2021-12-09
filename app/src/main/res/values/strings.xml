@@ -7,4 +7,6 @@
     <string name="save_text">SAVE TEXT TO LIBRARY</string>
     <string name="text_saved">Text saved to library!</string>
     <string name="go_to_library">GO TO LIBRARY</string>
+    <string name="capture_photo_description">Press to take a photo</string>
+    <string name="save_button_description">Press to save this text to your library</string>
 </resources>

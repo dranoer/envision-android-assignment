@@ -15,6 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/size_25"
+            android:contentDescription="@string/capture_photo_description"
             android:paddingStart="@dimen/size_25"
             android:paddingTop="@dimen/size_16"
             android:paddingEnd="@dimen/size_25"
