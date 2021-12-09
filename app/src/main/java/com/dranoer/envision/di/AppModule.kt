@@ -1,7 +1,11 @@
 package com.dranoer.envision.di
 
+import android.content.Context
+import androidx.room.Room
 import com.dranoer.envision.BuildConfig
 import com.dranoer.envision.Constants
+import com.dranoer.envision.Constants.DATABASE_NAME
+import com.dranoer.envision.data.local.OcrDatabase
 import com.dranoer.envision.data.remote.NetworkDataSource
 import com.dranoer.envision.data.remote.WebService
 import com.dranoer.envision.domain.OcrRepository
@@ -9,6 +13,7 @@ import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -55,4 +60,17 @@ object AppModule {
     ) =
         OcrRepository(dataSource)
 
+    @Singleton
+    @Provides
+    fun provideRoomInstance(
+        @ApplicationContext context: Context
+    ) = Room.databaseBuilder(
+        context,
+        OcrDatabase::class.java,
+        DATABASE_NAME
+    ).fallbackToDestructiveMigration().build()
+
+    @Singleton
+    @Provides
+    fun provideDao(db: OcrDatabase) = db.ocrDao()
 }
