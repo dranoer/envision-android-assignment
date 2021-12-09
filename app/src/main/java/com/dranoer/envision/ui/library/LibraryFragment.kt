@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dranoer.envision.databinding.FragmentLibraryBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,6 +34,7 @@ class LibraryFragment : Fragment() {
         val recyclerView = binding.libraryRecyclerview
         val adapter = LibraryAdapter()
         recyclerView.adapter = adapter
+        recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         viewModel.ocrs.observe(viewLifecycleOwner) {

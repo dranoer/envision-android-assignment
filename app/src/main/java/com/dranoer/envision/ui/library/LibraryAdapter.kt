@@ -19,15 +19,16 @@ class LibraryAdapter : ListAdapter<OcrEntity, LibraryAdapter.LibraryViewHolder>(
     override fun onBindViewHolder(holder: LibraryViewHolder, position: Int) {
         val current = getItem(position)
         holder.bind(
-            name = current.paragraph
+            date = current.date,
         )
     }
 
     class LibraryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val nameItemView: TextView = itemView.findViewById(R.id.name)
 
-        fun bind(name: String?) {
-            nameItemView.text = name
+        private val dateItemView: TextView = itemView.findViewById(R.id.dateText)
+
+        fun bind(date: String) {
+            dateItemView.text = date
         }
 
         companion object {
