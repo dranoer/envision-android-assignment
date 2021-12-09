@@ -42,6 +42,10 @@ class CapturedFragment : Fragment() {
 
         binding.paragraph.text = params
 
+        binding.saveButton.setOnClickListener {
+            params?.let { it1 -> viewModel.saveParagraph(it1) }
+        }
+
         return view
     }
 

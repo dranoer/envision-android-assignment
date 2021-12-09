@@ -47,6 +47,12 @@ class CaptureViewModel @Inject constructor(
                 is Resource.Failure -> {
                 }
             }
+        }
+    }
+
+    fun saveParagraph(paragraph: String) {
+        viewModelScope.launch {
+            repository.saveOcr(paragraph)
 
         }
     }

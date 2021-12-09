@@ -19,4 +19,8 @@ class OcrRepository @Inject constructor(
     suspend fun postPhoto(cookie: String, photo: MultipartBody.Part): Resource<OCRModel> {
         return networkDataSource.postPhoto(cookie, photo)
     }
+
+    suspend fun saveOcr(paragraph: String) {
+        return localDataSource.saveOcr(paragraph)
+    }
 }
