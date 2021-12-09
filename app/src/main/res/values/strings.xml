@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Envision</string>
     <string name="capture">CAPTURE</string>
+    <string name="capture_photo">CAPTURE PHOTO</string>
     <string name="library">LIBRARY</string>
     <string name="progress">OCR in progress...</string>
     <string name="save_text">SAVE TEXT TO LIBRARY</string>

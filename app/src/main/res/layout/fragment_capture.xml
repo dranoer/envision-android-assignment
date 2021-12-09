@@ -15,8 +15,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/size_25"
+            android:paddingStart="@dimen/size_25"
+            android:paddingTop="@dimen/size_16"
+            android:paddingEnd="@dimen/size_25"
+            android:paddingBottom="@dimen/size_16"
             android:scaleType="fitCenter"
-            android:text="@string/capture"
+            android:text="@string/capture_photo"
             app:cornerRadius="@dimen/size_50"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -43,7 +47,6 @@
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
 
         <androidx.camera.view.PreviewView
             android:id="@+id/viewFinder"

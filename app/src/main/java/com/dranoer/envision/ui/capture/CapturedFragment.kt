@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.dranoer.envision.Constants
@@ -67,10 +68,10 @@ class CapturedFragment : Fragment() {
         snackbarView.setBackgroundColor(Color.WHITE)
         val textView =
             snackbarView.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
-        textView.setTextColor(Color.DKGRAY)
+        textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey))
         textView.textSize = 14f
 
-        snackbar.setActionTextColor(Color.MAGENTA)
+        snackbar.setActionTextColor(ContextCompat.getColor(requireContext(), R.color.secondary))
         snackbar.setAction(resources.getString(R.string.go_to_library)) {
             navigationListener!!.openLibrary()
         }

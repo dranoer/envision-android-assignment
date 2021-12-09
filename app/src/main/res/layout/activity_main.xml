@@ -21,10 +21,10 @@
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/purple_700"
-            app:tabIconTint="@color/purple_200"
+            android:background="@color/primary"
+            app:tabIconTint="@color/on_primary"
             app:tabIndicatorColor="@color/white"
             app:tabSelectedTextColor="@color/white"
-            app:tabTextColor="@color/purple_200" />
+            app:tabTextColor="@color/on_primary" />
     </com.google.android.material.appbar.AppBarLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
