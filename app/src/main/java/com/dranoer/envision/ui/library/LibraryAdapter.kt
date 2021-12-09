@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.dranoer.envision.R
-import com.dranoer.envision.data.model.Paragraph
+import com.dranoer.envision.data.model.OcrEntity
 
-class LibraryAdapter : ListAdapter<Paragraph, LibraryAdapter.LibraryViewHolder>(COMPARATOR) {
+class LibraryAdapter : ListAdapter<OcrEntity, LibraryAdapter.LibraryViewHolder>(COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LibraryViewHolder {
         return LibraryViewHolder.create(parent)
@@ -40,13 +40,13 @@ class LibraryAdapter : ListAdapter<Paragraph, LibraryAdapter.LibraryViewHolder>(
     }
 
     companion object {
-        private val COMPARATOR = object : DiffUtil.ItemCallback<Paragraph>() {
-            override fun areItemsTheSame(oldItem: Paragraph, newItem: Paragraph): Boolean {
+        private val COMPARATOR = object : DiffUtil.ItemCallback<OcrEntity>() {
+            override fun areItemsTheSame(oldItem: OcrEntity, newItem: OcrEntity): Boolean {
                 return oldItem === newItem
             }
 
-            override fun areContentsTheSame(oldItem: Paragraph, newItem: Paragraph): Boolean {
-                return oldItem.paragraph == newItem.paragraph
+            override fun areContentsTheSame(oldItem: OcrEntity, newItem: OcrEntity): Boolean {
+                return oldItem.id == newItem.id
             }
         }
     }
