@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (pagerAdapter.getItem(0) is CapturedFragment && tabLayout.selectedTabPosition == 0)
-            pagerAdapter.openLibrary()
+            pagerAdapter.backToCapture()
         else finish()
     }
 }

@@ -59,8 +59,13 @@ class ViewPagerAdapter(
         notifyDataSetChanged()
     }
 
-    override fun openLibrary() {
+    override fun backToCapture() {
         fragment = CaptureFragment.newInstance(this)
+        notifyDataSetChanged()
+    }
+
+    override fun openLibrary() {
+        fragment = LibraryFragment.newInstance()
         notifyDataSetChanged()
     }
 }
