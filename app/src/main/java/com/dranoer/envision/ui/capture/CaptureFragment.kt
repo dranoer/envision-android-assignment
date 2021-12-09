@@ -158,7 +158,7 @@ class CaptureFragment : Fragment() {
                 )
 
             } catch (exc: Exception) {
-                Log.e(TAG, "Use case binding failed", exc)
+                Log.e(TAG, getString(R.string.failed_usecase_binding), exc)
             }
 
         }, ContextCompat.getMainExecutor(safeContext))
@@ -181,7 +181,7 @@ class CaptureFragment : Fragment() {
                 // ToDo >> to finish the activity in case of denying permission by user
                 Toast.makeText(
                     safeContext,
-                    "Permissions not granted by the user.",
+                    R.string.permissions_not_granted,
                     Toast.LENGTH_SHORT
                 ).show()
                 activity?.finish() // Does not work :?

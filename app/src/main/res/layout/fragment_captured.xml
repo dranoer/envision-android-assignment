@@ -26,7 +26,7 @@
             android:paddingBottom="@dimen/size_16"
             android:text="@string/save_text"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="@dimen/text_size_big"
             app:cornerRadius="@dimen/size_50"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -47,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:textSize="19sp" />
+                android:textSize="@dimen/text_size_big" />
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
