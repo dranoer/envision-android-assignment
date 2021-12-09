@@ -5,17 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.dranoer.envision.Constants
-import com.dranoer.envision.R
 import com.dranoer.envision.databinding.FragmentCapturedBinding
+import com.dranoer.envision.ui.MainActivity
 import com.dranoer.envision.ui.SharedViewModel
 import com.dranoer.envision.ui.listener.NavigationListener
 import com.dranoer.envision.ui.listener.TabListener
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -55,29 +52,10 @@ class CapturedFragment : Fragment() {
                 isEnabled = true
                 setBackgroundColor(Color.GRAY)
             }
-            openSnack(view)
+            (requireActivity() as MainActivity).openSnack()
         }
 
         return view
-    }
-
-    fun openSnack(view: View) {
-        val snackbar =
-            Snackbar.make(view, getString(R.string.text_saved), Snackbar.LENGTH_INDEFINITE)
-
-        val snackbarView = snackbar.view
-        snackbarView.setBackgroundColor(Color.WHITE)
-        val textView =
-            snackbarView.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
-        textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey))
-        textView.textSize = 14f
-
-        snackbar.setActionTextColor(ContextCompat.getColor(requireContext(), R.color.secondary))
-        snackbar.setAction(resources.getString(R.string.go_to_library)) {
-            navigationListener!!.openLibrary()
-        }
-
-        snackbar.show()
     }
 
     override fun onDestroy() {

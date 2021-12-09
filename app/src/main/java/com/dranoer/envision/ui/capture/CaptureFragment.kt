@@ -1,7 +1,6 @@
 package com.dranoer.envision.ui.capture
 
 import android.Manifest
-import android.content.Context
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
@@ -43,15 +42,8 @@ class CaptureFragment : Fragment() {
 
     val viewModel: SharedViewModel by viewModels()
 
-    private lateinit var safeContext: Context
-
     private lateinit var outputDirectory: File
     private lateinit var cameraExecutor: ExecutorService
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        safeContext = context
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -105,7 +97,7 @@ class CaptureFragment : Fragment() {
         // been taken
         imageCapture.takePicture(
             outputOptions,
-            ContextCompat.getMainExecutor(safeContext),
+            ContextCompat.getMainExecutor(requireContext()),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onError(exc: ImageCaptureException) {
                     Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
@@ -114,7 +106,7 @@ class CaptureFragment : Fragment() {
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     val savedUri = Uri.fromFile(photoFile)
                     val msg = "Photo capture succeeded: $savedUri"
-                    Toast.makeText(safeContext, msg, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
                     Log.d(TAG, msg)
 
                     binding.capturedImage.load(savedUri)
@@ -130,7 +122,7 @@ class CaptureFragment : Fragment() {
     }
 
     private fun startCamera() {
-        val cameraProviderFuture = ProcessCameraProvider.getInstance(safeContext)
+        val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
 
         cameraProviderFuture.addListener(Runnable {
             // Used to bind the lifecycle of cameras to the lifecycle owner
@@ -162,12 +154,12 @@ class CaptureFragment : Fragment() {
                 Log.e(TAG, getString(R.string.failed_usecase_binding), exc)
             }
 
-        }, ContextCompat.getMainExecutor(safeContext))
+        }, ContextCompat.getMainExecutor(requireContext()))
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(
-            safeContext, it
+            requireContext(), it
         ) == PackageManager.PERMISSION_GRANTED
     }
 
@@ -181,7 +173,7 @@ class CaptureFragment : Fragment() {
             } else {
                 // ToDo >> to finish the activity in case of denying permission by user
                 Toast.makeText(
-                    safeContext,
+                    requireContext(),
                     R.string.permissions_not_granted,
                     Toast.LENGTH_SHORT
                 ).show()
@@ -212,7 +204,7 @@ class CaptureFragment : Fragment() {
 
         @JvmStatic
         fun newInstance(listener: NavigationListener): CaptureFragment {
-            Companion.navigationListener = listener
+            navigationListener = listener
             return CaptureFragment()
         }
     }

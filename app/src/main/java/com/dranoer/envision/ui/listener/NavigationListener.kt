@@ -4,5 +4,4 @@ interface NavigationListener {
 
     fun openCaptured(paragraphs: String)
     fun backToCapture()
-    fun openLibrary()
 }

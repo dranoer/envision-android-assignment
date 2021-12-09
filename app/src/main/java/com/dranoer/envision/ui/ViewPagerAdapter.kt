@@ -51,7 +51,7 @@ class ViewPagerAdapter(
             POSITION_NONE
         else POSITION_UNCHANGED
     }
-    
+
     override fun openCaptured(paragraphs: String) {
         fragment = CapturedFragment.newInstance(
             tabListener = tabListener, navigationListener = this, paragraphs = paragraphs
@@ -61,11 +61,6 @@ class ViewPagerAdapter(
 
     override fun backToCapture() {
         fragment = CaptureFragment.newInstance(this)
-        notifyDataSetChanged()
-    }
-
-    override fun openLibrary() {
-        fragment = LibraryFragment.newInstance()
         notifyDataSetChanged()
     }
 }
