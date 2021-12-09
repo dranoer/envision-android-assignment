@@ -1,9 +1,7 @@
-package com.dranoer.envision.ui.capture
+package com.dranoer.envision.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.dranoer.envision.data.model.OcrEntity
 import com.dranoer.envision.data.remote.Resource
 import com.dranoer.envision.domain.OcrRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,12 +13,14 @@ import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
-class CaptureViewModel @Inject constructor(
+class SharedViewModel @Inject constructor(
     var repository: OcrRepository
 ) : ViewModel() {
 
     private val _paragraphsLiveData = MutableLiveData<String>()
     val paragraphsLiveData: LiveData<String> = _paragraphsLiveData
+
+    val ocrs: LiveData<List<OcrEntity>> = repository.ocrs.asLiveData()
 
     fun postPhoto(photo: File) {
 

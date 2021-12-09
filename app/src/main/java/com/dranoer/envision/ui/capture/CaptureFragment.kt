@@ -24,6 +24,7 @@ import androidx.fragment.app.viewModels
 import coil.load
 import com.dranoer.envision.R
 import com.dranoer.envision.databinding.FragmentCaptureBinding
+import com.dranoer.envision.ui.SharedViewModel
 import com.dranoer.envision.ui.listener.NavigationListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_capture.*
@@ -40,7 +41,7 @@ class CaptureFragment : Fragment() {
 
     private var imageCapture: ImageCapture? = null
 
-    val viewModel: CaptureViewModel by viewModels()
+    val viewModel: SharedViewModel by viewModels()
 
     private lateinit var safeContext: Context
 

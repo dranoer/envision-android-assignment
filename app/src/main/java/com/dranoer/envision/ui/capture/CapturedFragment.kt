@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import com.dranoer.envision.Constants
 import com.dranoer.envision.R
 import com.dranoer.envision.databinding.FragmentCapturedBinding
+import com.dranoer.envision.ui.SharedViewModel
 import com.dranoer.envision.ui.listener.NavigationListener
 import com.dranoer.envision.ui.listener.TabListener
 import com.google.android.material.snackbar.Snackbar
@@ -25,7 +26,7 @@ class CapturedFragment : Fragment() {
     var tabsListener: TabListener? = null
     var navigationListener: NavigationListener? = null
 
-    val viewModel: CaptureViewModel by viewModels()
+    val viewModel: SharedViewModel by viewModels()
 
     private var params: String? = null
 
