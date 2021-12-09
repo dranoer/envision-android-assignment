@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dranoer.envision.data.model.Paragraph
 import com.dranoer.envision.databinding.FragmentLibraryBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,18 +24,20 @@ class LibraryFragment : Fragment() {
         _binding = FragmentLibraryBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         val recyclerView = binding.libraryRecyclerview
         val adapter = LibraryAdapter()
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        adapter.submitList(
-            listOf(
-                Paragraph(paragraph = "Paragraph 01", language = "en"),
-                Paragraph(paragraph = "Paragraph 02", language = "en"),
-            )
-        )
 
-        return view
+        viewModel.ocrs.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
     }
 
     override fun onDestroy() {

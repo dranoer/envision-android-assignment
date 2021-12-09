@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.dranoer.envision.BuildConfig
 import com.dranoer.envision.Constants
 import com.dranoer.envision.Constants.DATABASE_NAME
+import com.dranoer.envision.data.local.LocalDataSource
 import com.dranoer.envision.data.local.OcrDatabase
 import com.dranoer.envision.data.remote.NetworkDataSource
 import com.dranoer.envision.data.remote.WebService
@@ -56,9 +57,10 @@ object AppModule {
     @Singleton
     @Provides
     fun provideRepository(
-        dataSource: NetworkDataSource,
+        remoteSource: NetworkDataSource,
+        localSource: LocalDataSource,
     ) =
-        OcrRepository(dataSource)
+        OcrRepository(remoteSource, localSource)
 
     @Singleton
     @Provides
