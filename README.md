@@ -1,43 +1,30 @@
-# Envision Android Assignment
+# Interview Test App
+<br />
 
-## Introduction
+# Architecture
+The project is implemented with MVVM and it's written fully with Kotlin.
 
+# Technologies And Decisions
+In this section, I'll try to mention some of the important things I used within this project and I'll explain the reason behind some of my decisions.
 
-Envision Library is a feature within the Envision app that users a lot after they've scanned a document. It offers them the convenience of storing the scanned documents within the app in an accessible way. This task will be a simple re-implementation of that feature.
+## DI
+I used hilt because of fewer boilerplate codes. Also generally, I think it's easier for integration tests as well.
 
-## Design
+## Coroutine and Flow
+For the threading and observing, I could use technologies like Livedata with Threadpools, Rx, But I used Coroutine and Flow in this project which is my preferred way.
+I can explain Why? It's hard to handle things like backpressure or debounce with Livedatas and ThreadPools.
+On the other hand, Coroutine is lighter than Rx. It's native and somehow it's easier to test because Google has created some libraries for that.
+*PS: I also used some codes from Google samples.*
 
+## Data Persistence
+I made a local database with the help of the Room library for storing captured photos' data in a table. I haven't faced any special issue with this object.
 
-You'll find the design for this feature through this figma link:  https://www.figma.com/file/mc8Ahvua2SU1sSpFLdchOp/%F0%9F%94%B5-Assignments?node-id=1%3A1011
+## Navigation and UI
+I do like the Navigation component but as I searched around there's an open issue for this component when it gets used by viewpager. They are not compatible together yet and you can not just simply use a Navigation Controller to be able to navigate between screens :(
+So I came up with a messy solution by using interfaces so on. This was my biggest challenge in this project. I would like to improve this part in the feature.
 
-Instructions on how to approach the UX of the Assignment is also provided on the figma page itself. 
+## UX
+I kept UI minimal and tried to just show I know how to use things like constraintlayout, etc, but I guess from the user side it's not good at all :)
 
-## Technical Requirements
-
-1. For the OCR setup please use this POST endpoint: https://letsenvision.app/api/test/readDocument. 
-
-Example usage of the API endpoint: 
-
-`curl --location --request POST 'https://letsenvision.app/api/test/readDocument' \
---header 'Cookie: __cfduid=d97604b6c67574ccd048c013ffbee703a1614774197' \
---form 'photo=@/Users/johndoe/Desktop/Screenshot 2021-02-25 at 23.50.47.png'`
-
-For more details on the API, here's the Postman [link](https://www.getpostman.com/collections/771c175ea7a0e2db34b9). 
-
-
-2. Make sure that the app is entirely accessible using Talkback. If you're not familar with Android Accessibility, this is a good place to start: https://developer.android.com/codelabs/starting-android-accessibility
-
-3. CameraX should be used for the camera implementation. 
-
-4. Library files will only have to be saved locally for the time being. 
-
-5. Please do the assignment to do in Kotlin.
-
-## Submission
-
-This repo should be forked and submitted with the Assignment. The assignment itself has a deadline of 1 week, if you'd like more time then please let your contact at Envision know about it.
-
-Incase of any questions with regards to the assignment, please write to kk@letsenvision.com 
-
-
-
+## Test
+Today is the deadline of this project and due to the pressure of my interviews I hadn't enough time to write tests for this project. Writing tests for this task was optional, but I have this missing part in my mind and I will write some tests for the people who may like to use my codes.
