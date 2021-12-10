@@ -49,7 +49,8 @@ class CapturedFragment : Fragment() {
             params?.let { it1 -> viewModel.saveParagraph(it1) }
 
             with(binding.saveButton) {
-                isEnabled = true
+                isEnabled = false
+
                 setBackgroundColor(Color.GRAY)
             }
             (requireActivity() as MainActivity).openSnack()
