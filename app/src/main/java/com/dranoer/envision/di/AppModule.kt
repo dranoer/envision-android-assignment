@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.dranoer.envision.BuildConfig
 import com.dranoer.envision.Constants
 import com.dranoer.envision.Constants.DATABASE_NAME
+import com.dranoer.envision.Constants.TIME_OUT
 import com.dranoer.envision.data.local.LocalDataSource
 import com.dranoer.envision.data.local.OcrDatabase
 import com.dranoer.envision.data.remote.NetworkDataSource
@@ -40,9 +41,9 @@ object AppModule {
         }
 
         val okHttpClient = OkHttpClient.Builder()
-            .writeTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .connectTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(TIME_OUT, TimeUnit.SECONDS)
+            .readTimeout(TIME_OUT, TimeUnit.SECONDS)
+            .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
             .addInterceptor(httpLogger)
             .build()
 

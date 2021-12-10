@@ -1,6 +1,7 @@
 package com.dranoer.envision.ui
 
 import androidx.lifecycle.*
+import com.dranoer.envision.Constants
 import com.dranoer.envision.data.model.OcrEntity
 import com.dranoer.envision.data.remote.Resource
 import com.dranoer.envision.domain.OcrRepository
@@ -31,7 +32,7 @@ class SharedViewModel @Inject constructor(
         try {
             emit(
                 repository.postPhoto(
-                    "__cfduid=d97604b6c67574ccd048c013ffbee703a1614774197",
+                    Constants.COOKIE,
                     filePart
                 )
             )

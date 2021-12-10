@@ -1,5 +1,6 @@
 package com.dranoer.envision.data.local
 
+import com.dranoer.envision.Constants.DATE_FORMAT
 import com.dranoer.envision.data.model.OcrEntity
 import kotlinx.coroutines.flow.Flow
 import java.text.SimpleDateFormat
@@ -14,7 +15,7 @@ class LocalDataSource @Inject constructor(private val ocrDao: OcrDao) {
 
         val ocr = OcrEntity(
             id = 0,
-            date = SimpleDateFormat("dd/M/yy HH:mm", Locale.US).format(System.currentTimeMillis()),
+            date = SimpleDateFormat(DATE_FORMAT, Locale.US).format(System.currentTimeMillis()),
             paragraph = paragraph
         )
         ocrDao.saveOcr(ocr)
