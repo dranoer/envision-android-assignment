@@ -1,9 +1,13 @@
 package com.dranoer.envision.ui
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
 import com.dranoer.envision.R
@@ -28,22 +32,48 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        if (!allPermissionsGranted())
+            ActivityCompat.requestPermissions(
+                this,
+                REQUIRED_PERMISSIONS,
+                REQUEST_CODE_PERMISSIONS
+            )
+
         // Setup tabs
         pagerAdapter =
-            ViewPagerAdapter(
-                fragmentManager = supportFragmentManager,
+            ViewPagerAdapter(fragmentManager = supportFragmentManager,
                 context = this,
                 tabListener = object : TabListener {
                     override fun onChangeTab() {
                         tabLayout.getTabAt(1)!!.select()
                     }
                 })
-
         viewPager = binding.viewPager
         viewPager.adapter = pagerAdapter
         tabLayout = binding.tabLayout
         tabLayout.setupWithViewPager(viewPager)
         tabLayout.getTabAt(1)!!.select()
+    }
+
+    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
+        ContextCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            if (!allPermissionsGranted()) {
+                Toast.makeText(
+                    this,
+                    R.string.permissions_not_granted,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 
     override fun onBackPressed() {
@@ -66,5 +96,10 @@ class MainActivity : AppCompatActivity() {
         textView.textSize = 14f
 
         snackbar.show()
+    }
+
+    companion object {
+        private const val REQUEST_CODE_PERMISSIONS = 10
+        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
     }
 }
