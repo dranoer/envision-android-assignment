@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import coil.load
 import com.dranoer.envision.R
+import com.dranoer.envision.data.remote.Resource
 import com.dranoer.envision.databinding.FragmentCaptureBinding
 import com.dranoer.envision.ui.SharedViewModel
 import com.dranoer.envision.ui.listener.NavigationListener
@@ -71,11 +72,6 @@ class CaptureFragment : Fragment() {
         outputDirectory = getOutputDirectory()
 
         cameraExecutor = Executors.newSingleThreadExecutor()
-
-        viewModel.paragraphsLiveData.observe(viewLifecycleOwner) { paragraphs ->
-            Log.d("nazi", "OCR is done now")
-            navigationListener?.openCaptured(paragraphs)
-        }
     }
 
     private fun takePhoto() {
@@ -106,17 +102,35 @@ class CaptureFragment : Fragment() {
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     val savedUri = Uri.fromFile(photoFile)
                     val msg = "Photo capture succeeded: $savedUri"
-                    Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
                     Log.d(TAG, msg)
 
                     binding.capturedImage.load(savedUri)
-                    binding.viewFinder.isGone = true
-                    binding.captureButton.isGone = true
                     binding.capturedImage.isVisible = true
                     binding.progressText.isVisible = true
+                    binding.viewFinder.isGone = true
+                    binding.captureButton.isGone = true
 
-                    viewModel.postPhoto(photoFile)
-                    Log.d("nazi", "ocr starts")
+                    viewModel.postPhoto(photoFile).observe(viewLifecycleOwner) { result ->
+                        when (result) {
+                            is Resource.Loading -> {
+                                binding.progressbar.isVisible = true
+                            }
+                            is Resource.Success -> {
+                                binding.progressbar.isGone = true
+
+                                var pharagraphs = ""
+                                for (paragraph in result.data.response.paragraphs) {
+                                    pharagraphs += paragraph.paragraph
+                                }
+                                navigationListener?.openCaptured(pharagraphs)
+                            }
+                            is Resource.Failure -> {
+                                binding.progressbar.isGone = true
+                                Log.e(TAG, "${result.exception.message}")
+                            }
+                        }
+
+                    }
                 }
             })
     }
