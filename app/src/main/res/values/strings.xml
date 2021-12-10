@@ -11,4 +11,5 @@
     <string name="save_button_description">Press to save this text to your library</string>
     <string name="permissions_not_granted">"Permissions not granted by the user.</string>
     <string name="failed_usecase_binding">Use case binding failed</string>
+    <string name="empty_text">Nothing yet in the library :)</string>
 </resources>

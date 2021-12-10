@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -39,6 +41,11 @@ class LibraryFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         viewModel.ocrs.observe(viewLifecycleOwner) {
+            when (it.isNullOrEmpty()) {
+                true -> binding.emptyText.isVisible = true
+                false -> binding.emptyText.isGone = true
+            }
+
             adapter.submitList(it)
         }
     }
